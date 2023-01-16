@@ -55,10 +55,11 @@ func EjecutarConsulta(method, path, urlfilters, bodyJson string) (*http.Response
 	r.Header.Add("OK-ACCESS-TIMESTAMP", timestamp)
 	client := &http.Client{}
 	resp, err := client.Do(r)
+	fmt.Println("ejecuto la orden okx")
 	if err != nil {
 		fmt.Print(err.Error())
 	}
-
+	fmt.Println("la orden se ejecuto satisfactoriamente")
 	return resp, err
 }
 
@@ -75,11 +76,14 @@ func SolicitarBookOrder(Currency string) models.OrderBook {
 }
 
 func PlaceOrder(miorden models.Order) models.OrderResponse {
-	resp, err := EjecutarConsulta("GET", "/api/v5/trade/order", "", "")
+	ordenjson, _ := json.Marshal(miorden)
+	resp, err := EjecutarConsulta("POST", "/api/v5/trade/order", "", string(ordenjson))
 	if err != nil {
 		fmt.Print(err.Error())
 	}
 	defer resp.Body.Close()
+	//responseData, _ := ioutil.ReadAll(resp.Body)
+	//fmt.Println("Respuesta solicitud de orden:", string(responseData))
 	var dataOrderResponse models.OrderResponse
 	json.NewDecoder(resp.Body).Decode(&dataOrderResponse)
 	fmt.Println(dataOrderResponse)

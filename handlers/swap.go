@@ -4,16 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"servertestgo/database"
 	"servertestgo/models"
 	"servertestgo/services"
+	"time"
 
 	"github.com/labstack/echo/v4"
 )
-
-type swapResponse struct {
-	request  string
-	response string
-}
 
 func Swap(c echo.Context) error {
 
@@ -55,15 +52,18 @@ func Swap(c echo.Context) error {
 	}
 	//datos validados creamos la orden
 	myorderarg := models.OrderArg{Side: side, InstId: "ETH-USD", TdMode: "isolated", OrdType: "market", Sz: sz}
-	myorder := models.Order{Id: id, Op: "order", Args: &myorderarg}
+	//al crear la orden le ponemos los dies segundos de vigencia que solicita el sistema
+	myorder := models.Order{Id: id, Op: "order", Args: &myorderarg, ExpTime: string((time.Now().Add(time.Second*10).UnixNano() / int64(time.Millisecond)))}
 
 	responseData := services.PlaceOrder(myorder)
+	fmt.Println(responseData)
 
-	requeststring, _ := json.Marshal(myorder)
+	requestOKXString, _ := json.Marshal(myorder)
+	responseOKXString, _ := json.Marshal(responseData)
 
-	responsestring, _ := json.Marshal(responseData)
-
-	u, _ := json.Marshal(swapResponse{request: string(requeststring), response: string(responsestring)})
+	datastorage := models.OrderEntity{Request_okx: string(requestOKXString), Vigency: time.Now(), Response_okx: string(responseOKXString)}
+	database.OrderStore(datastorage)
+	u, _ := json.Marshal(datastorage)
 
 	return c.String(http.StatusOK, string(u))
 
@@ -71,25 +71,7 @@ func Swap(c echo.Context) error {
 
 func SwapAll(c echo.Context) error {
 	fmt.Println("Se solicito el swapAll")
-
-	// if len(id) < 5 || len(side) < 5 || len(sz) < 5 {
-	// 	response.ErrorResponse = "se requiere id , side , sz "
-	// 	u, _ := json.Marshal(response)
-	// 	return c.String(http.StatusPartialContent, string(u))
-	// }
-
-	// fmt.Println(nameEstimate)
-	// myOrderBook := services.PlaceOrder(nameEstimate)
-	// response.ValorBuy = myOrderBook.Data[0].Asks[0][0]
-	// response.ValorSell = myOrderBook.Data[0].Bids[0][0]
-	// response.Vigency = time.Now().Add(time.Second * 10)
-	// u, _ := json.Marshal(response)
-	// datastorage := models.OrderBookEntity{
-	// 	Currency:  nameEstimate,
-	// 	ValorBuy:  response.ValorBuy,
-	// 	ValorSell: response.ValorSell,
-	// 	Vigency:   response.Vigency,
-	// }
-	// database.OrderBookStore(datastorage)
-	return c.String(http.StatusOK, " string(u)")
+	datos := database.OrderAll()
+	alldata, _ := json.Marshal(datos)
+	return c.String(http.StatusOK, string(alldata))
 }

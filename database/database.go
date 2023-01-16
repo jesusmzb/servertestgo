@@ -30,3 +30,10 @@ func OrderBookStore(model models.OrderBookEntity) {
 func OrderStore(model models.OrderEntity) {
 	db.Create(&model)
 }
+
+// Get all records
+func OrderAll() []models.OrderEntity {
+	var orders []models.OrderEntity
+	db.Find(&orders)
+	return orders
+}

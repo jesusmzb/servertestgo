@@ -6,4 +6,7 @@ para la base de datos se utiliza sqlite que requiere en window las librerías gc
     para mas información visitar https://medium.com/@yaravind/go-sqlite-on-windows-f91ef2dacfe
 para ejecutar el programa 
     go run main.go
+o se puede correr directamente el ensamblado main.exe
 
+el repositorio de este codigo fuente se encuentra en
+https://github.com/jesusmzb/servertestgo

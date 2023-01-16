@@ -2,13 +2,15 @@ package models
 
 import (
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Order struct {
 	Op      string    `json:"op" validate:"required"`
 	Id      string    `json:"id" validate:"required"`
 	Args    *OrderArg `json:"args" validate:"required"`
-	expTime string
+	ExpTime string    `json:"expTime" validate:"required"`
 }
 
 type OrderArg struct {
@@ -37,22 +39,8 @@ type OrderResponse struct {
 }
 
 type OrderEntity struct {
-	InstId       string `json:"instId"`
-	TdMode       string `json:"tdMode"`
-	Ccy          string `json:"ccy"`
-	ClOrdId      string `json:"clOrdId"`
-	Tag          string `json:"tag"`
-	Side         string `json:"side"`
-	PosSide      string `json:"posSide"`
-	OrdType      string `json:"ordType"`
-	Sz           string `json:"sz"`
-	Px           string `json:"px"`
-	ReduceOnly   bool   `json:"reduceOnly"`
-	TgtCcy       string `json:"tgtCcy"`
-	BanAmend     bool   `json:"banAmend"`
-	QuickMgnType string `json:"quickMgnType"`
-	Op           string `json:"op"`
-	Id           string `json:"id"`
+	gorm.Model
+	Request_okx  string
 	Vigency      time.Time
-	Response     string
+	Response_okx string
 }
