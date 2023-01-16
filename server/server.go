@@ -11,5 +11,9 @@ func InitServer(PORT string) {
 	e := echo.New()
 	//registramos las rutas
 	e.GET("/", handlers.Home)
+	e.GET("/estimate/:name", handlers.Estimate)
+	e.POST("/swap/", handlers.Swap)
+	e.GET("/swap/", handlers.SwapAll)
+
 	e.Logger.Fatal(e.Start(PORT))
 }

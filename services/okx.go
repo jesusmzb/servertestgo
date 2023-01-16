@@ -62,7 +62,7 @@ func EjecutarConsulta(method, path, urlfilters, bodyJson string) (*http.Response
 	return resp, err
 }
 
-func SolicitarBookOrder(Currency string) {
+func SolicitarBookOrder(Currency string) models.OrderBook {
 	resp, err := EjecutarConsulta("GET", "/api/v5/market/books", "?instId="+Currency, "")
 	if err != nil {
 		fmt.Print(err.Error())
@@ -71,4 +71,17 @@ func SolicitarBookOrder(Currency string) {
 	var dataorder models.OrderBook
 	json.NewDecoder(resp.Body).Decode(&dataorder)
 	fmt.Println(dataorder)
+	return dataorder
+}
+
+func PlaceOrder(miorden models.Order) models.OrderResponse {
+	resp, err := EjecutarConsulta("GET", "/api/v5/trade/order", "", "")
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+	defer resp.Body.Close()
+	var dataOrderResponse models.OrderResponse
+	json.NewDecoder(resp.Body).Decode(&dataOrderResponse)
+	fmt.Println(dataOrderResponse)
+	return dataOrderResponse
 }

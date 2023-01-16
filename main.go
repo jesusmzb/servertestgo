@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 	"servertestgo/database"
-	"servertestgo/services"
+	"servertestgo/server"
 
 	"github.com/joho/godotenv"
 )
@@ -25,8 +25,7 @@ func main() {
 	fmt.Println("API OKX:", OKX_API_URL)
 	DATABASE_NAME := os.Getenv("DATABASE_NAME")
 	database.InitDatabase(DATABASE_NAME)
-	services.SolicitarBookOrder("BTC-USDT")
-
+	server.InitServer(PORT)
 }
 
 // func MarketPrice() {

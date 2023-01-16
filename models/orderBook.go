@@ -1,6 +1,10 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 // para manejar las book order, creamos las estructuras
 type (
@@ -18,9 +22,9 @@ type (
 
 	OrderBookEntity struct {
 		gorm.Model
-		DepthPrice      float64
-		Size            float64
-		LiquidatedOrder int
-		OrderNumbers    int
+		Currency  string
+		ValorBuy  string
+		ValorSell string
+		Vigency   time.Time
 	}
 )
