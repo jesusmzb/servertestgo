@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "93f35dd0-8cf8-4da3-91b7-b715b6f37969",
+		"name": "okx bacu",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "665737"
+	},
+	"item": [
+		{
+			"name": "market price",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "book",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get price by pair",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/estimate/id",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"estimate",
+						"id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "placeorder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\":\"ahkdbfh\",\r\n\"side\":\"buy\",\r\n\"sz\":100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/swap/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"swap",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list order",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

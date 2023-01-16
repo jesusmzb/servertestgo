@@ -14,6 +14,5 @@ func InitServer(PORT string) {
 	e.GET("/estimate/:name", handlers.Estimate)
 	e.POST("/swap/", handlers.Swap)
 	e.GET("/swap/", handlers.SwapAll)
-
 	e.Logger.Fatal(e.Start(PORT))
 }
