@@ -82,8 +82,6 @@ func PlaceOrder(miorden models.Order) models.OrderResponse {
 		fmt.Print(err.Error())
 	}
 	defer resp.Body.Close()
-	//responseData, _ := ioutil.ReadAll(resp.Body)
-	//fmt.Println("Respuesta solicitud de orden:", string(responseData))
 	var dataOrderResponse models.OrderResponse
 	json.NewDecoder(resp.Body).Decode(&dataOrderResponse)
 	fmt.Println(dataOrderResponse)
