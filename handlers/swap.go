@@ -52,7 +52,7 @@ func Swap(c echo.Context) error {
 	}
 	//datos validados creamos la orden
 	myorderarg := models.OrderArg{Side: side, InstId: "ETH-USD", TdMode: "isolated", OrdType: "market", Sz: sz}
-	//al crear la orden le ponemos los dies segundos de vigencia que solicita el sistema
+	//al crear la orden le ponemos los diez segundos de vigencia que solicita el sistema
 	myorder := models.Order{Id: id, Op: "order", Args: &myorderarg, ExpTime: string((time.Now().Add(time.Second*10).UnixNano() / int64(time.Millisecond)))}
 
 	responseData := services.PlaceOrder(myorder)
