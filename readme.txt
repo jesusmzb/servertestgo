@@ -10,3 +10,6 @@ o se puede correr directamente el ensamblado main.exe
 
 el repositorio de este codigo fuente se encuentra en
 https://github.com/jesusmzb/servertestgo
+
+les dejo un video con la sustentacion del codigo
+    https://youtu.be/HkOxcKxNNfo
